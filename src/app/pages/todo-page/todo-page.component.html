@@ -1,3 +1,12 @@
-<app-header></app-header>
-<app-search></app-search>
-<app-todo-list></app-todo-list>
+<div *ngIf="{
+    todos: todos$ | async
+} as PageData">
+
+    <app-header></app-header>
+    <app-search></app-search>
+    <app-form (todo)="onPostTodo($event)"></app-form>
+    <div *ngIf="PageData.todos">
+        <app-todo-list [todos]="PageData.todos"></app-todo-list>
+    </div>
+
+</div>

@@ -16,12 +16,16 @@ export const todoInitialState: TodoState = {
     todos: []
 };
 
+export interface TodoAppState {
+    todoState: TodoState
+}
+
 export const todoReducer = createReducer(
     todoInitialState,
     on(TodoFacadeActions.addTodo, (state, action) => {
         return {
             ...state,
-            todoIds: [...state.todoIds, action.id],
+            todos: [...state.todos, action.todo]
         };
     }),
     on(TodoFacadeActions.removeTodo, (state, action) => {
