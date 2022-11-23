@@ -33,9 +33,7 @@ export class FormComponent implements OnInit {
         this.todoForm = new FormGroup({
             title: new FormControl("", [Validators.required]),
             description: new FormControl("", [Validators.required]),
-            option1: new FormControl("",),
-            option2: new FormControl("",),
-            option3: new FormControl("",),
+            severityLevel : new FormControl("", [Validators.required]),
         });
     }
 

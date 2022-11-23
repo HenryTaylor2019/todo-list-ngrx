@@ -3,5 +3,5 @@ export interface Todo {
     id: string;
     title: string;
     description: string;
-    level: string;
+    severityLevel: string;
 }

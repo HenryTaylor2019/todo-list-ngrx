@@ -1,22 +1,24 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
-import { catchError, exhaustMap, map } from "rxjs/operators";
+import { catchError, map, switchMap } from "rxjs/operators";
 import { Todo } from "src/app/models/todo";
 import { TodoApiService } from "src/app/services/todo-api.service";
+import { TodoFacadeService } from "src/app/services/todo-facade.service";
 import { TodoActions, TodoApiActions } from "../actions/action.types";
 
 @Injectable()
 export class TodoEffects {
     constructor(
         private todoApiService: TodoApiService,
-        private actions$: Actions
+        private actions$: Actions,
+        private todoFacadeService: TodoFacadeService
     ) {}
 
-    getAllTodosFromServer$ = createEffect(() =>
+    getAllTodos$ = createEffect(() =>
         this.actions$.pipe(
             ofType(TodoActions.getAllTodos),
-            exhaustMap((action) =>
+            switchMap((action) =>
                 this.todoApiService.getTodosFromStorage().pipe(
                     map((todos: Todo[]) =>
                         TodoApiActions.fetchAllTodosSuccess({ todos: todos })
@@ -29,10 +31,10 @@ export class TodoEffects {
         )
     );
 
-    addTodosToServer$ = createEffect(() =>
+    addTodos$ = createEffect(() =>
         this.actions$.pipe(
             ofType(TodoActions.addAllTodos),
-            exhaustMap((action) =>
+            switchMap((action) =>
                 this.todoApiService
                     .addAllTodosToStorage(action.todos)
                     .pipe(
@@ -44,41 +46,127 @@ export class TodoEffects {
         )
     );
 
-    addTodoToServer$ = createEffect(() =>
+    addTodo$ = createEffect(() =>
         this.actions$.pipe(
             ofType(TodoActions.addTodo),
-            exhaustMap((action) =>
+            switchMap((action) =>
                 this.todoApiService
                     .addTodoToStorage(action.todo)
                     .pipe(
                         map((todo: Todo) =>
-                            {
-                                return TodoApiActions.addTodoSuccess({ todo: todo })}
+                            TodoApiActions.addTodoSuccess({ todo: todo })
                         )
                     )
             )
         )
     );
 
-    removeToDoFromServer$ = createEffect(() =>
+    removeToDo$ = createEffect(() =>
         this.actions$.pipe(
             ofType(TodoActions.removeTodo),
-            exhaustMap((action) =>
+            switchMap(({ id }) =>
                 this.todoApiService
-                    .removeTodoFromStorage(action.id)
-                    .pipe(map((id) => TodoApiActions.removeTodoSuccess()))
+                    .removeTodoFromStorage(id)
+                    .pipe(map(() => TodoApiActions.removeTodoSuccess({ id })))
             )
         )
     );
 
-    removeAllToDosFromServer$ = createEffect(() =>
+    // Archive
+
+    getAllArchivedTodos$ = createEffect(() =>
     this.actions$.pipe(
-        ofType(TodoActions.removeTodo),
-        exhaustMap((action) =>
-            this.todoApiService
-                .removeTodoFromStorage(action.id)
-                .pipe(map((id) => TodoApiActions.removeTodoSuccess()))
+        ofType(TodoActions.getAllArchivedTodos),
+        switchMap((action) =>
+            this.todoApiService.getTodosFromArchiveStorage().pipe(
+                map((todos: Todo[]) =>
+                    TodoApiActions.fetchAllTodosFromArchiveSuccess({ todos: todos })
+                ),
+                catchError((error) =>
+                    of(TodoApiActions.fetchAllTodosFailure(error))
+                )
+            )
         )
     )
 );
+
+    addTodoToArchived$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(TodoActions.archiveTodo),
+            switchMap(({ todo }) =>
+                this.todoApiService
+                    .addTodoToArchiveStorage(todo)
+                    .pipe(
+                        switchMap((todo: Todo) => [
+                            TodoApiActions.archiveTodoSuccess({ todo }),
+                            TodoActions.removeTodo({ id: todo.id }),
+                        ])
+                    )
+            )
+        )
+    );
+
+    removeTodoFromArchived$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(TodoActions.removeTodoFromArchive),
+            switchMap(({ id }) =>
+                this.todoApiService
+                    .removeTodoFromArchiveStorage(id)
+                    .pipe(
+                        map(() =>
+                            TodoApiActions.removeTodoFromArchiveSuccess({ id })
+                        )
+                    )
+            )
+        )
+    );
+
+    // addTodosToArchiveServer$ = createEffect(() =>
+    // this.actions$.pipe(
+    //     ofType(TodoActions.archiveAllTodos),
+    //     switchMap(({ todos }) =>
+    //         this.todoApiService.addTodosToArchiveStorage(todos).pipe(
+    //             switchMap((todo: Todo) =>
+    //                 [
+    //                     TodoApiActions.archiveTodoSuccess({ todo }),
+    //                     TodoActions.removeTodos({ id: todo.id})
+    //                 ]
+    //             )
+    //         )
+    //     )
+    // )
+    // );
+
+    // How do bulk delete things
+    // deleteAllTodos$ = createEffect(() =>
+    //     this.actions$.pipe(
+    //         ofType(TodoActions.deleteAllTodos),
+    //         withLatestFrom(this.todoFacadeService.getTodos()),
+    //         switchMap((todos) =>
+    //             todos.map((todo) => TodoActions.removeTodo({ id: todo.id }))
+    //         )
+    //     )
+    // );
+
+    // How to bulk archive things
+    // archiveAllTodos$ = createEffect(() =>
+    //     this.actions$.pipe(
+    //         ofType(TodoActions.archiveAllTodos),
+    //         withLatestFrom(this.todoFacadeService.getTodos()),
+    //         switchMap((todos) =>
+    //             todos.map((todo) => TodoActions.archiveTodo({ id: todo.id }))
+    //         )
+    //     )
+    // );
+
+    // removeToDoFromArchiveServer$ = createEffect(() =>
+    //     this.actions$.pipe(
+    //         ofType(TodoActions.removeTodo),
+    //         switchMap((action) =>
+    //             this.todoApiService
+    //                 .removeTodoFromStorage(action.id)
+    //                 .pipe(map((id) => TodoApiActions.removeTodoSuccess()))
+    //         )
+    //     )
+    // );
 }

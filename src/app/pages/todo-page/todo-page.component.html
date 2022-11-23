@@ -1,12 +1,18 @@
 <div *ngIf="{
-    todos: todos$ | async
+    todos: todos$ | async,
+    archivedTodos: archivedTodos$ | async
 } as PageData" class="page__container">
 
     <app-header></app-header>
-    <!-- <app-search></app-search> -->
-    <app-form (todo)="onPostTodo($event)" ></app-form>
-    <div *ngIf="PageData.todos">
-        <app-todo-list [todos]="PageData.todos" (deleteTodo)="onDeleteTodo($event)"></app-todo-list>
+    <!-- <app-search ></app-search> -->
+    <app-form (todo)="onPostTodo($event)"></app-form>
+    <div *ngIf="PageData.todos && PageData.archivedTodos">
+        <app-todo-list 
+            [todos]="PageData.todos" 
+            [archivedTodos]="PageData.archivedTodos"
+            (deleteTodo)="onDeleteTodo($event)" (archiveTodo)="onArchiveTodo($event)"
+            (deleteArchivedTodo)="onDeleteArchivedTodo($event)"
+        ></app-todo-list>
     </div>
 
 </div>

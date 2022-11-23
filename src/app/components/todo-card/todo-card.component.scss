@@ -1,6 +1,38 @@
 .container {
-    border: 2px solid black;
-    padding: 5px 20px 20px 20px; 
-    border-radius: 15px;
-    width: 30%;
+
+    &__card {
+        border: 2px solid black;
+        border-radius: 15px;
+        overflow: hidden; 
+        width: 500px;   
+        white-space: nowrap;
+    }
+
+    &__title {
+        background: black;
+        color: white;
+        padding: 0 20px;
+
+        h2 {
+            margin: 0;
+        }
+
+        &-low {
+            background-color: green;
+        }
+    
+        &-medium {
+            background-color: blue;
+        }
+    
+        &-high {
+            background-color: red;
+        }
+    }
+
+
+
+    &__body {
+        padding: 5px 20px 20px 20px;
+    }
 }

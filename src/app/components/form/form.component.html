@@ -10,17 +10,18 @@
 
             <div class="container__field">
                 <label for="description">Description</label>
-                <input class="container__field--desc" type="text" id="description" formControlName="description"
-                    placeholder="Description">
+                <textarea class="container__field--desc" type="text" id="description" formControlName="description"
+                    placeholder="Description"></textarea>
             </div>
 
-            <!-- <div class="container__level">
-                <div *ngFor="let option of severityOptions; let i = index">
+            <div class="container__level">
+                <div *ngFor="let option of severityOptions">
                     <label for="{{option.label}}">
-                        <input class="container__radio" type="radio" id="{{option.label}}" >
-                        {{option.label}}</label>
+                        <input class="container__radio" [value]="option.label" type="radio" name="severityLevel" id="{{option.label}}" formControlName="severityLevel">
+                        {{option.label}}
+                    </label>
                 </div>
-            </div> -->
+            </div>
 
 
             <div class="container__actions">

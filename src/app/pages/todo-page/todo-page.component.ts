@@ -15,7 +15,8 @@ import { v4 as uuid } from "uuid";
     styleUrls: ["./todo-page.component.scss"],
 })
 export class TodoPageComponent implements OnInit {
-    public todos$!: Observable<Todo[]>;
+    public todos$: Observable<Todo[]>;
+    public archivedTodos$: Observable<Todo[]>;
     public todo!: Todo;
     public uuid!: string;
 
@@ -26,19 +27,31 @@ export class TodoPageComponent implements OnInit {
         private store: Store
     ) {
         this.todos$ = this.todoFacadeService.getTodos();
+        this.archivedTodos$ = this.todoFacadeService.getArchivedTodos();
     }
 
     ngOnInit(): void {
         this.store.dispatch(TodoActions.getAllTodos());
+        this.store.dispatch(TodoActions.getAllArchivedTodos());
     }
 
     onPostTodo(todo: Todo) {
         todo.id = uuid();
 
-        this.todoFacadeService.dispatch(TodoActions.addTodo({ todo: todo }));
+        this.todoFacadeService.dispatch(TodoActions.addTodo({ todo }));
+    }
+
+    onArchiveTodo(todo: Todo) {
+        this.todoFacadeService.dispatch(
+            TodoActions.archiveTodo({ todo })
+        );
     }
 
     onDeleteTodo(id: string) {
-        this.todoFacadeService.dispatch(TodoActions.removeTodo({ id: id }));
+        this.todoFacadeService.dispatch(TodoActions.removeTodo({ id }));
+    }
+
+    onDeleteArchivedTodo(id: string) {
+        this.todoFacadeService.dispatch(TodoActions.removeTodoFromArchive({ id }));
     }
 }

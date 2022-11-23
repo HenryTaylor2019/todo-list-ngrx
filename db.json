@@ -1,4 +1,24 @@
 {
-  "todos": [],
-  "archivedTodos": []
+  "todos": [
+    {
+      "title": "more things",
+      "description": "Aliquam euismod, enim vel laoreet auctor, urna purus blandit justo, a lacinia mi eros et orci. Morbi bibendum condimentum orci, id consequat enim. Cras laoreet velit et justo tempus venenatis non ultrices sem. Proin viverra justo eu lobortis interdum. Proin molestie metus pellentesque, tristique purus pulvinar, iaculis ex. Proin pretium ante quis auctor scelerisque. Sed elementum odio a quam elementum blandit. Morbi quis condimentum arcu, vitae bibendum nibh.",
+      "severityLevel": "High",
+      "id": "0be4f19d-cae1-4d05-ab84-78b30f1f420d"
+    },
+    {
+      "title": "Get Shopping",
+      "description": "List:\n- eggs\n- jam\n- potaotes ",
+      "severityLevel": "Medium",
+      "id": "6e4c1c8c-68d9-4d2b-837d-693af8814a83"
+    }
+  ],
+  "archivedtodos": [
+    {
+      "title": "Get some stuff",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc posuere sit amet nulla varius dictum. Quisque condimentum quam et risus eleifend, vel interdum enim suscipit. Nulla nec mauris lobortis lacus auctor auctor eu ac massa. Pellentesque accumsan, leo eget lobortis varius, magna dolor dictum neque, eget eleifend massa sem in nulla. In hac habitasse platea dictumst. Phasellus rhoncus lacus eu vestibulum tincidunt. Morbi in magna convallis neque egestas fringilla. In a commodo quam, a vehicula elit. Nunc eget nunc sit amet erat suscipit vulputate.",
+      "severityLevel": "Low",
+      "id": "cbb260b1-be0e-4df7-afcf-905866c7f413"
+    }
+  ]
 }

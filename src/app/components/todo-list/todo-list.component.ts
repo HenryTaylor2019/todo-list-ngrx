@@ -8,18 +8,34 @@ import { Todo } from "src/app/models/todo";
 })
 export class TodoListComponent implements OnInit {
     @Input()
-    public todos!: Todo[];
+    public todos: Todo[];
+
+    @Input()
+    public archivedTodos: Todo[];
 
     @Output()
     public deleteTodo: EventEmitter<string> = new EventEmitter<string>();
 
+    @Output()
+    public archiveTodo: EventEmitter<Todo> = new EventEmitter<Todo>();
+
+    @Output()
+    public deleteArchivedTodo: EventEmitter<string> = new EventEmitter<string>();
+
+
     constructor() {}
 
-    ngOnInit(): void {
-        console.log(this.todos);
-    }
+    ngOnInit(): void {}
 
     onDeleteTodo(id: string) {
-      this.deleteTodo.emit(id)
+        this.deleteTodo.emit(id);
+    }
+
+    onArchiveTodo(todo: Todo) {
+        this.archiveTodo.emit(todo);
+    }
+
+    onDeleteArchivedTodo(id: string) {
+        this.deleteArchivedTodo.emit(id);
     }
 }

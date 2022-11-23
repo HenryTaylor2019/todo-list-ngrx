@@ -1,10 +1,40 @@
 <div class="container">
-    <div class="container__content">
-        <h2>{{todo.title}}</h2>
-        <p>{{todo.description}}</p>
+
+    <div class="container__card" *ngIf="todo; else archived">
+        <div class="container__title" [ngClass]="getColor()">
+            <h2>{{todo.title}}</h2>
+        </div>
+
+        <div class="container__body">
+            <p>{{todo.description}}</p>
+            <p>Severity: {{todo.severityLevel}}</p>
+
+            <div class="container__btn-container">
+                <button class="conatiner--btn" (click)="onDelete()">Delete</button>
+                <button class="conatiner--btn" (click)="onArchive()">Archive</button>
+            </div>
+        </div>
     </div>
 
-    <div class="container__btn-container">
-        <button class="conatiner--btn" (click)="onDelete()">Delete</button>
-    </div>
+    <ng-template #archived>
+
+        <div class="container__card">
+            <div class="container__title">
+                <h2>{{archivedTodo.title}}</h2>
+            </div>
+
+            <div class="container__body">
+                <p>{{archivedTodo.description}}</p>
+                <p>Severity: {{archivedTodo.severityLevel}}</p>
+
+                <div class="container__btn-container">
+                    <button class="conatiner--btn" (click)="onDeleteArchived()">Delete</button>
+                </div>
+            </div>
+        </div>
+
+    </ng-template>
+
+
+
 </div>

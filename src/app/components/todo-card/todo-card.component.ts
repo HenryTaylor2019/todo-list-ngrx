@@ -8,16 +8,37 @@ import { Todo } from "src/app/models/todo";
 })
 export class TodoCardComponent implements OnInit {
     @Input()
-    public todo!: Todo;
+    public todo: Todo;
+
+    @Input()
+    public archivedTodo: Todo;
 
     @Output()
-    public deleteTodo: EventEmitter<string> = new EventEmitter<string>();
+    public onDeleteTodo: EventEmitter<void> = new EventEmitter<void>();
+
+    @Output()
+    public onArchiveTodo: EventEmitter<void> = new EventEmitter<void>();
+
+    @Output()
+    public onDeleteArchivedTodo: EventEmitter<void> = new EventEmitter<void>();
 
     constructor() {}
 
     ngOnInit(): void {}
 
     onDelete() {
-        this.deleteTodo.emit(this.todo.id);
+        this.onDeleteTodo.emit();
+    }
+
+    onArchive() {
+        this.onArchiveTodo.emit();
+    }
+
+    onDeleteArchived() {
+        this.onDeleteArchivedTodo.emit();
+    }
+
+    getColor() {
+        return "container__title-" + this.todo.severityLevel.toLowerCase()
     }
 }

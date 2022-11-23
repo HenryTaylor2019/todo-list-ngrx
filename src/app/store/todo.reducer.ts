@@ -7,17 +7,19 @@ export interface TodoState {
     loaded: boolean;
     todoIds: string[];
     todos: Todo[];
+    archivedTodos: Todo[];
 }
 
 export const todoInitialState: TodoState = {
     loading: true,
     loaded: false,
     todoIds: [],
-    todos: []
+    todos: [],
+    archivedTodos: [],
 };
 
 export interface TodoAppState {
-    todoState: TodoState
+    todoState: TodoState;
 }
 
 export const todoReducer = createReducer(
@@ -25,7 +27,7 @@ export const todoReducer = createReducer(
     on(TodoActions.addTodo, (state, action) => {
         return {
             ...state,
-            todos: [...state.todos, action.todo]
+            todos: [...state.todos, action.todo],
         };
     }),
     on(TodoActions.removeTodo, (state, action) => {
@@ -33,20 +35,20 @@ export const todoReducer = createReducer(
             ...state,
             loading: true,
             loaded: false,
-            todos:[ ...state.todos.filter(todo => todo.id != action.id)]
         };
     }),
-    on(TodoApiActions.removeTodoSuccess, (state) => {
+    on(TodoApiActions.removeTodoSuccess, (state, { id }) => {
         return {
             ...state,
             loading: false,
             loaded: true,
+            todos: [...state.todos.filter((todo) => todo.id != id)],
         };
     }),
-    on(TodoApiActions.fetchAllTodos, (state, action) => {
+    on(TodoApiActions.fetchAllTodos, (state) => {
         return {
             ...state,
-            loading: true
+            loading: true,
         };
     }),
     on(TodoApiActions.fetchAllTodosSuccess, (state, action) => {
@@ -54,7 +56,52 @@ export const todoReducer = createReducer(
             ...state,
             loading: false,
             loaded: true,
-            todos: [...state.todos, ...action.todos]
+            todos: [...state.todos, ...action.todos],
+        };
+    }),
+
+    // Archive
+
+    on(TodoActions.archiveTodo, (state) => {
+        return {
+            ...state,
+            loading: true,
+            loaded: false,
+        };
+    }),
+    on(TodoApiActions.archiveTodoSuccess, (state, { todo }) => {
+        return {
+            ...state,
+            archivedTodos: [...state.archivedTodos, todo]
+        };
+    }),
+    on(TodoActions.removeTodo, (state) => {
+        return {
+            ...state,
+            loading: true,
+            loaded: false,
+        };
+    }),
+    on(TodoApiActions.removeTodoFromArchiveSuccess, (state, { id }) => {
+        return {
+            ...state,
+            loading: false,
+            loaded: true,
+            archivedTodos: [...state.archivedTodos.filter((todo) => todo.id != id)],
+        };
+    }),
+    on(TodoApiActions.fetchAllTodosFromArchive, (state) => {
+        return {
+            ...state,
+            loading: true,
+        };
+    }),
+    on(TodoApiActions.fetchAllTodosFromArchiveSuccess, (state, action) => {
+        return {
+            ...state,
+            loading: false,
+            loaded: true,
+            archivedTodos: [...state.archivedTodos, ...action.todos],
         };
     }),
 );

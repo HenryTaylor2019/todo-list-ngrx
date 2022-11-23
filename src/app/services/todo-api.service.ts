@@ -14,7 +14,6 @@ export class TodoApiService {
     }
 
     public addTodoToStorage(todo: Todo) {
-        console.log('ooo')
         const url = 'http://localhost:3000/todos/';
         return this.http.post<Todo>(url, todo);
     }
@@ -31,6 +30,28 @@ export class TodoApiService {
 
     public removeAllTodosFromStorage(id: string) {
         const url = `http://localhost:3000/todos/${id}`;
+        return this.http.delete<Todo>(url);
+    }
+
+    // Archive
+
+    public getTodosFromArchiveStorage() {
+        const url = 'http://localhost:3000/archivedtodos/';
+        return this.http.get<Todo[]>(url);
+    }
+
+    public addTodoToArchiveStorage(todo: Todo) {
+        const url = 'http://localhost:3000/archivedtodos/';
+        return this.http.post<Todo>(url, todo);
+    }
+
+    public addTodosToArchiveStorage(todos: Todo[]) {
+        const url = 'http://localhost:3000/archivedtodos/';
+        return this.http.post<Todo[]>(url, todos);
+    }
+
+    public removeTodoFromArchiveStorage(id: string) {
+        const url = `http://localhost:3000/archivedtodos/${id}`;
         return this.http.delete<Todo>(url);
     }
 }
