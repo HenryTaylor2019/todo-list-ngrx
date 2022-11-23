@@ -1,5 +1,10 @@
 <div class="container">
-    <h2>{{todo.title}}</h2>
-    <p>{{todo.description}}</p>
-    <p>{{todo.id}}</p>
+    <div class="container__content">
+        <h2>{{todo.title}}</h2>
+        <p>{{todo.description}}</p>
+    </div>
+
+    <div class="container__btn-container">
+        <button class="conatiner--btn" (click)="onDelete()">Delete</button>
+    </div>
 </div>

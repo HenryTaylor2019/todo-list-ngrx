@@ -1,19 +1,23 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Todo } from 'src/app/models/todo';
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Todo } from "src/app/models/todo";
 
 @Component({
-  selector: 'app-todo-card',
-  templateUrl: './todo-card.component.html',
-  styleUrls: ['./todo-card.component.scss']
+    selector: "app-todo-card",
+    templateUrl: "./todo-card.component.html",
+    styleUrls: ["./todo-card.component.scss"],
 })
 export class TodoCardComponent implements OnInit {
-  @Input()
-  public todo!: Todo;
+    @Input()
+    public todo!: Todo;
 
-  
-  constructor() { }
+    @Output()
+    public deleteTodo: EventEmitter<string> = new EventEmitter<string>();
 
-  ngOnInit(): void {
-  }
+    constructor() {}
 
+    ngOnInit(): void {}
+
+    onDelete() {
+        this.deleteTodo.emit(this.todo.id);
+    }
 }

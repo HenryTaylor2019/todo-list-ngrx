@@ -1,4 +1,4 @@
 import * as TodoApiActions from "./todo-api.actions";
-import * as TodoFacadeActions from "./todo-facade.actions";
+import * as TodoActions from "./todo.actions";
 
-export { TodoFacadeActions, TodoApiActions };
+export { TodoApiActions, TodoActions };

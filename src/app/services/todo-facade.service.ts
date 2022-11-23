@@ -11,7 +11,7 @@ export class TodoFacadeService {
     constructor(private store: Store<any>) {}
 
     getTodos(): Observable<Todo[]> {
-      return this.store.select(selectTodos)
+        return this.store.select(selectTodos);
     }
 
     dispatch(action: Action) {

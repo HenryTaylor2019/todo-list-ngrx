@@ -1,12 +1,4 @@
 {
-  "todos": [
-    {
-
-    }
-  ],
-  "archivedTodos": [
-    {
-      
-    }
-  ]
+  "todos": [],
+  "archivedTodos": []
 }

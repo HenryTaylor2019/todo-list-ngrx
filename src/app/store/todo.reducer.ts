@@ -1,11 +1,11 @@
 import { createReducer, on } from "@ngrx/store";
 import { Todo } from "../models/todo";
-import { TodoApiActions, TodoFacadeActions } from "./actions/action.types";
+import { TodoActions, TodoApiActions } from "./actions/action.types";
 
 export interface TodoState {
     loading: boolean;
     loaded: boolean;
-    todoIds: number[];
+    todoIds: string[];
     todos: Todo[];
 }
 
@@ -22,16 +22,25 @@ export interface TodoAppState {
 
 export const todoReducer = createReducer(
     todoInitialState,
-    on(TodoFacadeActions.addTodo, (state, action) => {
+    on(TodoActions.addTodo, (state, action) => {
         return {
             ...state,
             todos: [...state.todos, action.todo]
         };
     }),
-    on(TodoFacadeActions.removeTodo, (state, action) => {
+    on(TodoActions.removeTodo, (state, action) => {
         return {
             ...state,
-            todoIds:[ ...state.todoIds.filter(id => id === action.id)]
+            loading: true,
+            loaded: false,
+            todos:[ ...state.todos.filter(todo => todo.id != action.id)]
+        };
+    }),
+    on(TodoApiActions.removeTodoSuccess, (state) => {
+        return {
+            ...state,
+            loading: false,
+            loaded: true,
         };
     }),
     on(TodoApiActions.fetchAllTodos, (state, action) => {

@@ -1,0 +1,61 @@
+.container {
+    // margin: 30px;    
+    padding: 20px;
+    width: 30%;
+    border: 2px solid black;
+    border-radius: 15px;
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__field {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+
+        &--input {
+            border-radius: 15px;
+            border: 1px solid black;
+            padding: 8px 8px;
+        }
+
+        &--desc {
+            border-radius: 15px;
+            border: 1px solid black;
+            padding: 8px 8px 50px 8px;
+        }
+    }
+
+    &__level {
+        display: flex;
+        flex-direction: row;
+        padding: 5px 0;
+    }
+
+    &__radio {
+        background-color: red;
+    }
+
+    &__actions {
+        padding-top: 10px;
+
+        button {
+            padding: 6px 12px;
+            background: rgb(42, 139, 42);
+            color: white;
+            font-size: 16px;
+            border-radius: 15px;
+            border: none;
+            box-shadow: none;
+            cursor: pointer;
+
+            &:disabled {
+                background-color: grey;
+                cursor: not-allowed;
+            }
+        }
+    }
+}
