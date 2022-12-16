@@ -1,0 +1,6 @@
+    <div class="container" *ngIf="archivedTodos">
+        <div *ngFor="let archivedTodo of archivedTodos" class="container__todos">
+            <app-todo-card [archivedTodo]="archivedTodo" (onDeleteArchivedTodo)="onDeleteArchivedTodo(archivedTodo.id)" (onViewTodoDetails)="onViewDetails(archivedTodo)">
+            </app-todo-card>
+        </div>
+    </div>

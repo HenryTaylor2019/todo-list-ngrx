@@ -1,17 +1,18 @@
 <div class="container">
 
     <div class="container__card" *ngIf="todo; else archived">
-        <div class="container__title" [ngClass]="getColor()">
+        <div class="container__title" [ngClass]="getColor('todo')">
             <h2>{{todo.title}}</h2>
         </div>
 
         <div class="container__body">
-            <p>{{todo.description}}</p>
-            <p>Severity: {{todo.severityLevel}}</p>
+            <!-- <p>{{todo.description}}</p> -->
+            <!-- <div class="container__severity" [ngClass]="getColor('todo')"></div> -->
 
             <div class="container__btn-container">
-                <button class="conatiner--btn" (click)="onDelete()">Delete</button>
-                <button class="conatiner--btn" (click)="onArchive()">Archive</button>
+                <button mat-raised-button class="conatiner--btn" (click)="onDelete()">Delete</button>
+                <button mat-raised-button class="conatiner--btn" (click)="onArchive()">Archive</button>
+                <button mat-raised-button class="conatiner--btn" (click)="onViewDetails()">View</button>
             </div>
         </div>
     </div>
@@ -19,16 +20,17 @@
     <ng-template #archived>
 
         <div class="container__card">
-            <div class="container__title">
+            <div class="container__title" [ngClass]="getColor('arhcived')">
                 <h2>{{archivedTodo.title}}</h2>
             </div>
 
             <div class="container__body">
-                <p>{{archivedTodo.description}}</p>
-                <p>Severity: {{archivedTodo.severityLevel}}</p>
+                <!-- <p>{{archivedTodo.description}}</p>
+                <p>Severity: {{archivedTodo.severityLevel}}</p> -->
 
                 <div class="container__btn-container">
                     <button class="conatiner--btn" (click)="onDeleteArchived()">Delete</button>
+                    <button class="conatiner--btn" (click)="onViewDetails()">View</button>
                 </div>
             </div>
         </div>

@@ -1,23 +1,6 @@
-<div class="container">
-    <div class="container__active" *ngIf="todos">
-        <div>
-            <h1>To dos</h1>
-        </div>
-        <div *ngFor="let todo of todos" class="container">
-            <app-todo-card [todo]="todo" (onDeleteTodo)="onDeleteTodo(todo.id)" (onArchiveTodo)="onArchiveTodo(todo)">
-            </app-todo-card>
-        </div>
+<div class="container" *ngIf="todos">
+    <div *ngFor="let todo of todos" class="container__todos">
+        <app-todo-card [todo]="todo" (onDeleteTodo)="onDeleteTodo(todo.id)" (onArchiveTodo)="onArchiveTodo(todo)" (onViewTodoDetails)="onViewDetails(todo)">
+        </app-todo-card>
     </div>
-
-    <div class="container__archived" *ngIf="archivedTodos">
-        <div>
-            <h1>Archived</h1>
-        </div>
-        <div *ngFor="let archivedTodo of archivedTodos" class="container">
-            <app-todo-card [archivedTodo]="archivedTodo" (onDeleteArchivedTodo)="onDeleteArchivedTodo(archivedTodo.id)">
-            </app-todo-card>
-        </div>
-    </div>
-
 </div>
-

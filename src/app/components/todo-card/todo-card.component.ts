@@ -22,9 +22,14 @@ export class TodoCardComponent implements OnInit {
     @Output()
     public onDeleteArchivedTodo: EventEmitter<void> = new EventEmitter<void>();
 
+    @Output()
+    public onViewTodoDetails: EventEmitter<void> = new EventEmitter<void>();
+
     constructor() {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+
+    }
 
     onDelete() {
         this.onDeleteTodo.emit();
@@ -34,11 +39,17 @@ export class TodoCardComponent implements OnInit {
         this.onArchiveTodo.emit();
     }
 
+    onViewDetails() {
+        this.onViewTodoDetails.emit();
+    }
+
     onDeleteArchived() {
         this.onDeleteArchivedTodo.emit();
     }
 
-    getColor() {
-        return "container__title-" + this.todo.severityLevel.toLowerCase()
+    getColor(type: string) {
+       return type === 'todo' ?
+         "container__title-" + this.todo.severityLevel.toLowerCase() :
+         "container__title-" + this.archivedTodo.severityLevel.toLowerCase() 
     }
 }

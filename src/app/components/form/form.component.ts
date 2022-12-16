@@ -32,7 +32,7 @@ export class FormComponent implements OnInit {
     ngOnInit(): void {
         this.todoForm = new FormGroup({
             title: new FormControl("", [Validators.required]),
-            description: new FormControl("", [Validators.required]),
+            description: new FormControl(""),
             severityLevel : new FormControl("", [Validators.required]),
         });
     }

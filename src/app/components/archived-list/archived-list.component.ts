@@ -2,20 +2,19 @@ import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { Todo } from "src/app/models/todo";
 
 @Component({
-    selector: "app-todo-list",
-    templateUrl: "./todo-list.component.html",
-    styleUrls: ["./todo-list.component.scss"],
+    selector: "app-archived-list",
+    templateUrl: "./archived-list.component.html",
+    styleUrls: ["./archived-list.component.scss"],
 })
-export class TodoListComponent implements OnInit {
+export class ArchivedListComponent implements OnInit {
     @Input()
-    public todos: Todo[];
+    public archivedTodos: Todo[];
 
     @Output()
     public deleteTodo: EventEmitter<string> = new EventEmitter<string>();
 
     @Output()
     public archiveTodo: EventEmitter<Todo> = new EventEmitter<Todo>();
-
 
     @Output()
     public onViewTodoDetails: EventEmitter<Todo> = new EventEmitter<Todo>();
@@ -30,10 +29,6 @@ export class TodoListComponent implements OnInit {
 
     onDeleteTodo(id: string) {
         this.deleteTodo.emit(id);
-    }
-
-    onArchiveTodo(todo: Todo) {
-        this.archiveTodo.emit(todo);
     }
 
     onViewDetails(todo: Todo) {

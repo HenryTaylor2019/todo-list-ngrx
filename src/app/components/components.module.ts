@@ -1,15 +1,45 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
-import { FormComponent } from './form/form.component';
+import { MatButtonModule } from "@angular/material/button";
+import { MatDialogModule } from "@angular/material/dialog";
+import { MatInputModule } from "@angular/material/input";
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ArchivedListComponent } from "./archived-list/archived-list.component";
+import { FormComponent } from "./form/form.component";
 import { HeaderComponent } from "./header/header.component";
 import { SearchComponent } from "./search/search.component";
-import { TodoCardComponent } from './todo-card/todo-card.component';
-import { TodoListComponent } from './todo-list/todo-list.component';
+import { TodoCardComponent } from "./todo-card/todo-card.component";
+import { TodoDialogComponent } from "./todo-dialog/todo-dialog.component";
+import { TodoListComponent } from "./todo-list/todo-list.component";
 
 @NgModule({
-    declarations: [HeaderComponent, SearchComponent, TodoCardComponent, TodoListComponent, FormComponent],
-    imports: [CommonModule, ReactiveFormsModule],
-    exports: [HeaderComponent, SearchComponent, TodoListComponent, FormComponent]
+    declarations: [
+        HeaderComponent,
+        SearchComponent,
+        TodoCardComponent,
+        TodoListComponent,
+        FormComponent,
+        ArchivedListComponent,
+        TodoDialogComponent,
+    ],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatSlideToggleModule,
+        BrowserAnimationsModule,
+        MatDialogModule,
+        MatButtonModule,
+    ],
+    exports: [
+        HeaderComponent,
+        SearchComponent,
+        TodoListComponent,
+        FormComponent,
+        ArchivedListComponent,
+        TodoDialogComponent,
+    ],
 })
 export class ComponentsModule {}

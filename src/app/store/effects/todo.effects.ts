@@ -1,8 +1,10 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
-import { catchError, map, switchMap } from "rxjs/operators";
+import { catchError, map, switchMap, tap } from "rxjs/operators";
+import { SoundEffects } from "src/app/constants/sound-effects.enum";
 import { Todo } from "src/app/models/todo";
+import { SoundService } from "src/app/services/sound.service";
 import { TodoApiService } from "src/app/services/todo-api.service";
 import { TodoFacadeService } from "src/app/services/todo-facade.service";
 import { TodoActions, TodoApiActions } from "../actions/action.types";
@@ -12,7 +14,8 @@ export class TodoEffects {
     constructor(
         private todoApiService: TodoApiService,
         private actions$: Actions,
-        private todoFacadeService: TodoFacadeService
+        private todoFacadeService: TodoFacadeService,
+        private soundService: SoundService
     ) {}
 
     getAllTodos$ = createEffect(() =>
@@ -121,28 +124,12 @@ export class TodoEffects {
         )
     );
 
-    // addTodosToArchiveServer$ = createEffect(() =>
-    // this.actions$.pipe(
-    //     ofType(TodoActions.archiveAllTodos),
-    //     switchMap(({ todos }) =>
-    //         this.todoApiService.addTodosToArchiveStorage(todos).pipe(
-    //             switchMap((todo: Todo) =>
-    //                 [
-    //                     TodoApiActions.archiveTodoSuccess({ todo }),
-    //                     TodoActions.removeTodos({ id: todo.id})
-    //                 ]
-    //             )
-    //         )
-    //     )
-    // )
-    // );
-
     // How do bulk delete things
     // deleteAllTodos$ = createEffect(() =>
     //     this.actions$.pipe(
-    //         ofType(TodoActions.deleteAllTodos),
+    //         ofType(TodoActions.removeAllTodos),
     //         withLatestFrom(this.todoFacadeService.getTodos()),
-    //         switchMap((todos) =>
+    //         switchMap((todos: Todo[]) =>
     //             todos.map((todo) => TodoActions.removeTodo({ id: todo.id }))
     //         )
     //     )
@@ -153,20 +140,20 @@ export class TodoEffects {
     //     this.actions$.pipe(
     //         ofType(TodoActions.archiveAllTodos),
     //         withLatestFrom(this.todoFacadeService.getTodos()),
-    //         switchMap((todos) =>
-    //             todos.map((todo) => TodoActions.archiveTodo({ id: todo.id }))
+    //         switchMap((todos: Todo[]) =>
+    //             todos.map((todo) => TodoActions.archiveTodo({ todo: todo }))
     //         )
     //     )
     // );
 
-    // removeToDoFromArchiveServer$ = createEffect(() =>
-    //     this.actions$.pipe(
-    //         ofType(TodoActions.removeTodo),
-    //         switchMap((action) =>
-    //             this.todoApiService
-    //                 .removeTodoFromStorage(action.id)
-    //                 .pipe(map((id) => TodoApiActions.removeTodoSuccess()))
-    //         )
-    //     )
-    // );
+
+    // Sound FX
+
+    playSoundOnArchiveTodo = createEffect(() => 
+      this.actions$.pipe(
+        ofType(TodoActions.archiveTodo),
+        tap(() => this.soundService.play(SoundEffects.bell, 0.2))
+      ),
+      { dispatch: false }
+    )
 }

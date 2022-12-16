@@ -1,14 +1,18 @@
 <div class="container">
+    <div class="container__title">
+        <mat-label>Add Todo</mat-label>
+    </div>
+
     <form [formGroup]="todoForm" (submit)="onSubmit()">
         <div class="container__form">
-
+      
             <div class="container__field">
                 <label for="title">Title</label>
                 <input class="container__field--input" type="text" id="title" formControlName="title"
                     placeholder="Title">
             </div>
 
-            <div class="container__field">
+            <div class="container__field" *ngIf="todoForm.value.title">
                 <label for="description">Description</label>
                 <textarea class="container__field--desc" type="text" id="description" formControlName="description"
                     placeholder="Description"></textarea>

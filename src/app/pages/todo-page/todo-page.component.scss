@@ -1,3 +1,19 @@
-.page__container {
+.container {
     padding: 40px;
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__form {
+        width: 40%;
+    }
+
+    &__lists {
+        display: flex;
+        gap: 10px;
+        // flex-direction: column;
+    }
 }

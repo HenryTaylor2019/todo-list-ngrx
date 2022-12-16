@@ -1,10 +1,13 @@
-.container {
+$low: #4DA167;
+$mid: #F9A03F;
+$high: #D45113;
 
+.container {
     &__card {
-        border: 2px solid black;
+        border: 1px solid black;
         border-radius: 15px;
         overflow: hidden; 
-        width: 500px;   
+        width: 300px;   
         white-space: nowrap;
     }
 
@@ -18,15 +21,15 @@
         }
 
         &-low {
-            background-color: green;
+            background-color: $low;
         }
     
         &-medium {
-            background-color: blue;
+            background-color: $mid;
         }
     
         &-high {
-            background-color: red;
+            background-color: $high;
         }
     }
 
@@ -34,5 +37,29 @@
 
     &__body {
         padding: 5px 20px 20px 20px;
+    }
+
+    &__severity {
+        height: 15px;
+        width: 15px;
+        border-radius: 50%;
+
+        &-low {
+            background-color: $low;
+        }
+    
+        &-medium {
+            background-color: $mid;
+        }
+    
+        &-high {
+            background-color: $high;
+        }
+    }
+
+    &__btn-container {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
     }
 }

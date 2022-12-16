@@ -3,6 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 import { Todo } from "src/app/models/todo";
+import { DialogService } from "src/app/services/dialog-service";
 import { TodoApiService } from "src/app/services/todo-api.service";
 import { TodoFacadeService } from "src/app/services/todo-facade.service";
 import { TodoActions } from "src/app/store/actions/action.types";
@@ -24,7 +25,8 @@ export class TodoPageComponent implements OnInit {
         private todoApiService: TodoApiService,
         private todoFacadeService: TodoFacadeService,
         private http: HttpClient,
-        private store: Store
+        private store: Store,
+        private todoDialogService: DialogService
     ) {
         this.todos$ = this.todoFacadeService.getTodos();
         this.archivedTodos$ = this.todoFacadeService.getArchivedTodos();
@@ -45,6 +47,10 @@ export class TodoPageComponent implements OnInit {
         this.todoFacadeService.dispatch(
             TodoActions.archiveTodo({ todo })
         );
+    }
+
+    onOpenDialog(todo: Todo) {
+        this.todoDialogService.openDialog(todo)
     }
 
     onDeleteTodo(id: string) {
