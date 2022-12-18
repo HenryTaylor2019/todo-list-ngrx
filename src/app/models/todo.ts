@@ -4,4 +4,6 @@ export interface Todo {
     title: string;
     description: string;
     severityLevel: string;
+    archived: boolean;
+    listId: string;
 }

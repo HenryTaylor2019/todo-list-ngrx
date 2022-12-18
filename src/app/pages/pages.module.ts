@@ -1,5 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatButtonModule } from "@angular/material/button";
 import { MatInputModule } from "@angular/material/input";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatTabsModule } from "@angular/material/tabs";
@@ -13,7 +15,10 @@ import { TodoPageComponent } from "./todo-page/todo-page.component";
         CommonModule,
         ComponentsModule,
         MatInputModule,
+        ReactiveFormsModule,
         MatTabsModule,
+        MatButtonModule,
+        FormsModule,
         MatSlideToggleModule,
         BrowserAnimationsModule
     ],

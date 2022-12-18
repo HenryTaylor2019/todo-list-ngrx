@@ -1,4 +1,5 @@
 import { createAction, props } from "@ngrx/store";
+import { List } from "src/app/models/list";
 import { Todo } from "src/app/models/todo";
 
 export const getAllTodos = createAction("[Todo] Get all todos from store");
@@ -22,4 +23,20 @@ export const archiveAllTodos = createAction("[Todo] Add All todos to archive", p
 export const removeTodoFromArchive = createAction("[Todo] Remove todo from archive", props<{ id: string }>());
 
 export const removeAllTodosfromArchive = createAction("[Todo] Remove alls todo from archive");
+
+
+
+// List
+
+export const addList = createAction("[List] Create new list", props<{ list: List }>());
+
+export const getAllLists = createAction("[List] Get all lists from store");
+
+export const addAllLists = createAction("[List] Add All lists to store", props<{ lists: List[] }>());
+
+export const removeList = createAction("[List] Remove list from store", props<{ id: string }>());
+
+export const removeAllLists = createAction("[List] Remove all lists from store");
+
+
 

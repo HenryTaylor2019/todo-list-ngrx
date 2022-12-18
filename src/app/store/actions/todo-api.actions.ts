@@ -1,4 +1,5 @@
 import { createAction, props } from "@ngrx/store";
+import { List } from "src/app/models/list";
 import { Todo } from "src/app/models/todo";
 
 export const addTodo = createAction("[Todo] Add todo to server");
@@ -18,7 +19,6 @@ export const addAllTodosSuccess = createAction(
 export const removeTodo = createAction(
     "[Todo] Remove todo from server",
     props<{ id: string }>()
-
 );
 
 export const removeTodoSuccess = createAction(
@@ -38,6 +38,45 @@ export const fetchAllTodosFailure = createAction(
     props<any>()
 );
 
+// Lists
+
+export const addList = createAction("[List] Add list to server");
+
+export const addListSuccess = createAction(
+    "[List] Add list to server Succcess",
+    props<{ list: List }>()
+);
+
+export const addAllLists = createAction("[List] Add all lists to server");
+
+export const addAllListsSuccess = createAction(
+    "[List] Add all lists to server success",
+    props<{ lists: List[] }>()
+);
+
+
+export const removeListSuccess = createAction(
+    "[List] Remove list from server Success",
+    props<{ id: string }>()
+);
+
+export const fetchAllLists = createAction("[List] Fetch all lists from server");
+
+export const fetchAllListsSuccess = createAction(
+    "[List] Fetch all lists from server success",
+    props<{ lists: List[] }>()
+);
+
+export const fetchAllListsFailure = createAction(
+    "[List] Fetch all lists from server Failed",
+    props<any>()
+);
+
+export const removeAllListsSuccess = createAction(
+    "[List] Remove all lists from server success");
+
+export const removeAllListsFailure = createAction(
+    "[List] Remove all lists from server Failed");
 
 // Archived
 
@@ -58,7 +97,6 @@ export const archiveAllTodosSuccess = createAction(
 export const removeTodoFromArchive = createAction(
     "[Todo] Remove todo from archive",
     props<{ id: string }>()
-
 );
 
 export const removeTodoFromArchiveSuccess = createAction(
@@ -66,7 +104,9 @@ export const removeTodoFromArchiveSuccess = createAction(
     props<{ id: string }>()
 );
 
-export const fetchAllTodosFromArchive = createAction("[Todo] Fetch all todos from archive");
+export const fetchAllTodosFromArchive = createAction(
+    "[Todo] Fetch all todos from archive"
+);
 
 export const fetchAllTodosFromArchiveSuccess = createAction(
     "[Todo] Fetch all todos from archive success",

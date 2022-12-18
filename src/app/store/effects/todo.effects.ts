@@ -3,6 +3,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
 import { catchError, map, switchMap, tap } from "rxjs/operators";
 import { SoundEffects } from "src/app/constants/sound-effects.enum";
+import { List } from "src/app/models/list";
 import { Todo } from "src/app/models/todo";
 import { SoundService } from "src/app/services/sound.service";
 import { TodoApiService } from "src/app/services/todo-api.service";
@@ -64,7 +65,7 @@ export class TodoEffects {
         )
     );
 
-    removeToDo$ = createEffect(() =>
+    removeTodo$ = createEffect(() =>
         this.actions$.pipe(
             ofType(TodoActions.removeTodo),
             switchMap(({ id }) =>
@@ -75,23 +76,84 @@ export class TodoEffects {
         )
     );
 
-    // Archive
+    // Lists
 
-    getAllArchivedTodos$ = createEffect(() =>
-    this.actions$.pipe(
-        ofType(TodoActions.getAllArchivedTodos),
-        switchMap((action) =>
-            this.todoApiService.getTodosFromArchiveStorage().pipe(
-                map((todos: Todo[]) =>
-                    TodoApiActions.fetchAllTodosFromArchiveSuccess({ todos: todos })
-                ),
-                catchError((error) =>
-                    of(TodoApiActions.fetchAllTodosFailure(error))
+    getAllLists$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(TodoActions.getAllLists),
+            switchMap(() =>
+                this.todoApiService.getListsFromStorage().pipe(
+                    map((lists: List[]) =>
+                        TodoApiActions.fetchAllListsSuccess({ lists })
+                    ),
+                    catchError((error) =>
+                        of(TodoApiActions.fetchAllListsFailure(error))
+                    )
                 )
             )
         )
-    )
-);
+    );
+
+    addList$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(TodoActions.addList),
+            switchMap((action) =>
+                this.todoApiService
+                    .addListToStorage(action.list)
+                    .pipe(
+                        map((list: List) =>
+                            TodoApiActions.addListSuccess({ list })
+                        )
+                    )
+            )
+        )
+    );
+
+    addLists$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(TodoActions.addAllLists),
+            switchMap((action) =>
+                this.todoApiService
+                    .addAllListsToStorage(action.lists)
+                    .pipe(
+                        map((lists: List[]) =>
+                            TodoApiActions.addAllListsSuccess({ lists })
+                        )
+                    )
+            )
+        )
+    );
+
+    removeList$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(TodoActions.removeList),
+            switchMap(({ id }) =>
+                this.todoApiService
+                    .removeListFromStorage(id)
+                    .pipe(map(() => TodoApiActions.removeListSuccess({ id })))
+            )
+        )
+    );
+
+    // Archive
+
+    getAllArchivedTodos$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(TodoActions.getAllArchivedTodos),
+            switchMap((action) =>
+                this.todoApiService.getTodosFromArchiveStorage().pipe(
+                    map((todos: Todo[]) =>
+                        TodoApiActions.fetchAllTodosFromArchiveSuccess({
+                            todos: todos,
+                        })
+                    ),
+                    catchError((error) =>
+                        of(TodoApiActions.fetchAllTodosFailure(error))
+                    )
+                )
+            )
+        )
+    );
 
     addTodoToArchived$ = createEffect(() =>
         this.actions$.pipe(
@@ -146,14 +208,14 @@ export class TodoEffects {
     //     )
     // );
 
-
     // Sound FX
 
-    playSoundOnArchiveTodo = createEffect(() => 
-      this.actions$.pipe(
-        ofType(TodoActions.archiveTodo),
-        tap(() => this.soundService.play(SoundEffects.bell, 0.2))
-      ),
-      { dispatch: false }
-    )
+    playSoundOnArchiveTodo = createEffect(
+        () =>
+            this.actions$.pipe(
+                ofType(TodoActions.archiveTodo),
+                tap(() => this.soundService.play(SoundEffects.bell, 0.2))
+            ),
+        { dispatch: false }
+    );
 }

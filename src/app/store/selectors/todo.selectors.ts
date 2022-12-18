@@ -6,9 +6,12 @@ const selectTodoState = (state: TodoAppState) => state;
 
 export const selectTodos = createSelector(selectTodoState, (state) => (state.todoState.todos))
 export const selectArchivedTodos = createSelector(selectTodoState, (state) => (state.todoState.archivedTodos))
+export const selectLists = createSelector(selectTodoState, (state) => (state.todoState.lists))
+export const selectLoadingState = createSelector(selectTodoState, (state) => (state.todoState.loading))
 
 
 export const TodoSelectors = {
     selectTodos: selectTodos,
-    selectArchivedTodos: selectArchivedTodos
+    selectArchivedTodos: selectArchivedTodos,
+    selectLists: selectLists,
 }

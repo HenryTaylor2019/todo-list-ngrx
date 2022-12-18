@@ -1,6 +1,21 @@
 <div class="container" *ngIf="todos">
-    <div *ngFor="let todo of todos" class="container__todos">
-        <app-todo-card [todo]="todo" (onDeleteTodo)="onDeleteTodo(todo.id)" (onArchiveTodo)="onArchiveTodo(todo)" (onViewTodoDetails)="onViewDetails(todo)">
-        </app-todo-card>
+    <div class="container__title">
+        <h2>{{list.title}}</h2>
     </div>
+
+    <div class="container__content">
+        <div class="container__todos" *ngFor="let todo of filteredTodos" >
+            <app-todo-card 
+                [todo]="todo" 
+                (onDeleteTodo)="onDeleteTodo(todo.id)" 
+                (onArchiveTodo)="onArchiveTodo(todo)"
+                (onViewTodoDetails)="onViewDetails(todo)"
+                >
+            </app-todo-card>
+        </div>
+        <div class="container__form">
+            <app-form (todo)="onPostTodo($event)"></app-form>
+        </div>
+    </div>
+
 </div>

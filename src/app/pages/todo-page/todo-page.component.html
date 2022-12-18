@@ -1,35 +1,43 @@
 <div *ngIf="{
     todos: todos$ | async,
-    archivedTodos: archivedTodos$ | async
+    archivedTodos: archivedTodos$ | async,
+    lists: lists$ | async,
+    isloading: isLoading$ | async
 } as PageData" class="container">
 
     <app-header></app-header>
-    <!-- <app-search ></app-search> -->
 
-    <div class="container__content">
+    <div class="container__content" (submit)="onCreateList()">
+        <form action="" [formGroup]="listForm">
+            <input type="text" formControlName="title">
+            <button mat-raised-button [disabled]="!listForm.valid">Add List</button>
+        </form>
 
-        <div class="container__form">
-            <app-form (todo)="onPostTodo($event)"></app-form>
-        </div>
+        <button (click)="onRemoveAllLists()">Remove all lists</button>
 
-        <div class="container__lists">
-
-            <div *ngIf="PageData.todos">
-                <h2>To do</h2>
-                <app-todo-list [todos]="PageData.todos" (deleteTodo)="onDeleteTodo($event)"
-                    (archiveTodo)="onArchiveTodo($event)" (deleteArchivedTodo)="onDeleteArchivedTodo($event)"
-                    (onViewTodoDetails)="onOpenDialog($event)">
-                </app-todo-list>
-            </div>
-
-            <div *ngIf="PageData.archivedTodos">
-                <h2>Archived</h2>
-                <app-archived-list [archivedTodos]="PageData.archivedTodos" (deleteTodo)="onDeleteTodo($event)"
-                    (archiveTodo)="onArchiveTodo($event)" (deleteArchivedTodo)="onDeleteArchivedTodo($event)"
-                    (onViewTodoDetails)="onOpenDialog($event)">
-                </app-archived-list>
-            </div>
+        <div *ngIf="PageData.todos && PageData.lists">
+            <app-lists 
+            [todos]="PageData.todos"
+            (deleteTodo)="onDeleteTodo($event)" 
+            (archiveTodo)="onArchiveTodo($event)"
+            (deleteArchivedTodo)="onDeleteArchivedTodo($event)" 
+            (onViewTodoDetails)="onOpenDialog($event)"
+            (todo)="onPostTodo($event)" 
+            [lists]="PageData.lists">
+            </app-lists>
         </div>
 
     </div>
 </div>
+
+
+
+
+
+<!-- 
+            <div *ngIf="PageData.archivedTodos">
+                <app-archived-list [archivedTodos]="PageData.archivedTodos" (deleteTodo)="onDeleteTodo($event)"
+                    (archiveTodo)="onArchiveTodo($event)" (deleteArchivedTodo)="onDeleteArchivedTodo($event)"
+                    (onViewTodoDetails)="onOpenDialog($event)">
+                </app-archived-list>
+            </div> -->

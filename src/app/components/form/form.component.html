@@ -1,6 +1,5 @@
 <div class="container">
     <div class="container__title">
-        <mat-label>Add Todo</mat-label>
     </div>
 
     <form [formGroup]="todoForm" (submit)="onSubmit()">
@@ -27,12 +26,9 @@
                 </div>
             </div>
 
-
             <div class="container__actions">
                 <button [disabled]="!todoForm.valid">Submit Todo</button>
             </div>
-
         </div>
-
     </form>
 </div>

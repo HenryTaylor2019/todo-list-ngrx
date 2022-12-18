@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { List } from "../models/list";
 import { Todo } from "../models/todo";
 
 @Injectable({
@@ -32,6 +33,34 @@ export class TodoApiService {
         const url = `http://localhost:3000/todos/${id}`;
         return this.http.delete<Todo>(url);
     }
+
+    // Lists
+
+    public getListsFromStorage() {
+        const url = 'http://localhost:3000/lists/';
+        return this.http.get<List[]>(url);
+    }
+
+    public addListToStorage(list: List) {
+        const url = 'http://localhost:3000/lists/';
+        return this.http.post<List>(url, list);
+    }
+
+    public addAllListsToStorage(lists: List[]) {
+        const url = 'http://localhost:3000/lists/';
+        return this.http.post<List[]>(url, lists);
+    }
+
+    public removeListFromStorage(id: string) {
+        const url = `http://localhost:3000/lists/${id}`;
+        return this.http.delete<List>(url);
+    }
+
+    public removeAllListsFromStorage() {
+        const url = `http://localhost:3000/lists/`;
+        return this.http.delete<List>(url);
+    }
+
 
     // Archive
 

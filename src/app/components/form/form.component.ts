@@ -38,7 +38,6 @@ export class FormComponent implements OnInit {
     }
 
     onSubmit() {
-        console.log(this.todoForm.value)
         if (this.todoForm.valid) {
             this.todo.emit(this.todoForm.value);
             this.todoForm.reset();

@@ -1,4 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
+import { List } from "../models/list";
 import { Todo } from "../models/todo";
 import { TodoActions, TodoApiActions } from "./actions/action.types";
 
@@ -8,6 +9,7 @@ export interface TodoState {
     todoIds: string[];
     todos: Todo[];
     archivedTodos: Todo[];
+    lists: List[];
 }
 
 export const todoInitialState: TodoState = {
@@ -16,6 +18,7 @@ export const todoInitialState: TodoState = {
     todoIds: [],
     todos: [],
     archivedTodos: [],
+    lists: [],
 };
 
 export interface TodoAppState {
@@ -30,7 +33,7 @@ export const todoReducer = createReducer(
             todos: [...state.todos, action.todo],
         };
     }),
-    on(TodoActions.removeTodo, (state, action) => {
+    on(TodoActions.removeTodo, (state) => {
         return {
             ...state,
             loading: true,
@@ -49,6 +52,8 @@ export const todoReducer = createReducer(
         return {
             ...state,
             loading: true,
+            loaded: false,
+
         };
     }),
     on(TodoApiActions.fetchAllTodosSuccess, (state, action) => {
@@ -62,17 +67,24 @@ export const todoReducer = createReducer(
 
     // Archive
 
-    on(TodoActions.archiveTodo, (state) => {
+    on(TodoActions.archiveTodo, (state, { todo }) => {
         return {
             ...state,
             loading: true,
             loaded: false,
+            todos: [
+                ...state.todos.filter((item) =>
+                    item.id === todo.id
+                        ? (item.archived = true)
+                        : (item.archived = false)
+                ),
+            ],
         };
     }),
     on(TodoApiActions.archiveTodoSuccess, (state, { todo }) => {
         return {
             ...state,
-            archivedTodos: [...state.archivedTodos, todo]
+            archivedTodos: [...state.archivedTodos, todo],
         };
     }),
     on(TodoActions.removeTodo, (state) => {
@@ -87,12 +99,15 @@ export const todoReducer = createReducer(
             ...state,
             loading: false,
             loaded: true,
-            archivedTodos: [...state.archivedTodos.filter((todo) => todo.id != id)],
+            archivedTodos: [
+                ...state.archivedTodos.filter((todo) => todo.id != id),
+            ],
         };
     }),
     on(TodoApiActions.fetchAllTodosFromArchive, (state) => {
         return {
             ...state,
+            loaded: false,
             loading: true,
         };
     }),
@@ -102,6 +117,42 @@ export const todoReducer = createReducer(
             loading: false,
             loaded: true,
             archivedTodos: [...state.archivedTodos, ...action.todos],
+        };
+    }),
+    on(TodoActions.addList, (state, { list }) => {
+        return {
+            ...state,
+            lists: [...state.lists, list],
+        };
+    }),
+    on(TodoApiActions.fetchAllLists, (state) => {
+        return {
+            ...state,
+            loading: true,
+            loaded: false,
+        };
+    }),
+    on(TodoApiActions.fetchAllListsSuccess, (state, {lists}) => {
+        return {
+            ...state,
+            loading: false,
+            loaded: true,
+            lists: [...state.lists, ...lists],
+        };
+    }),
+    on(TodoActions.removeAllLists, (state) => {
+        return {
+            ...state,
+            loading: true,
+            loaded: false,
+        };
+    }),
+    on(TodoApiActions.removeAllListsSuccess, (state) => {
+        return {
+            ...state,
+            loading: false,
+            loaded: true,
+            lists: []
         };
     }),
 );

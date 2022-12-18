@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ArchivedListComponent } from "./archived-list/archived-list.component";
 import { FormComponent } from "./form/form.component";
 import { HeaderComponent } from "./header/header.component";
+import { ListsComponent } from './lists/lists.component';
 import { SearchComponent } from "./search/search.component";
 import { TodoCardComponent } from "./todo-card/todo-card.component";
 import { TodoDialogComponent } from "./todo-dialog/todo-dialog.component";
@@ -23,6 +24,7 @@ import { TodoListComponent } from "./todo-list/todo-list.component";
         FormComponent,
         ArchivedListComponent,
         TodoDialogComponent,
+        ListsComponent,
     ],
     imports: [
         CommonModule,
@@ -40,6 +42,7 @@ import { TodoListComponent } from "./todo-list/todo-list.component";
         FormComponent,
         ArchivedListComponent,
         TodoDialogComponent,
+        ListsComponent
     ],
 })
 export class ComponentsModule {}
