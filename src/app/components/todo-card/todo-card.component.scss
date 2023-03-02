@@ -1,42 +1,61 @@
-$low: #4DA167;
-$mid: #F9A03F;
-$high: #D45113;
+$low: #4da167;
+$mid: #f9a03f;
+$high: #d45113;
 
 .container {
     &__card {
-        border: 1px solid black;
-        border-radius: 15px;
-        overflow: hidden; 
-        width: 300px;   
+        background: rgb(249, 248, 248);
+        border-radius: 5px;
+        padding: 0.5em 0;
+        overflow: hidden;
+        width: 300px;
         white-space: nowrap;
+        cursor: pointer;
     }
 
-    &__title {
-        background: black;
-        color: white;
-        padding: 0 20px;
+    // &__title {
+    //     background: black;
+    //     color: white;
+    //     // padding: 0 20px;
 
-        h2 {
-            margin: 0;
-        }
+    //     p {
+    //         margin: 0;
+    //     }
 
-        &-low {
-            background-color: $low;
-        }
-    
-        &-medium {
-            background-color: $mid;
-        }
-    
-        &-high {
-            background-color: $high;
-        }
-    }
+    //     &-low {
+    //         background-color: $low;
+    //     }
 
+    //     &-medium {
+    //         background-color: $mid;
+    //     }
 
+    //     &-high {
+    //         background-color: $high;
+    //     }
+    // }
 
     &__body {
-        padding: 5px 20px 20px 20px;
+        padding: 0.25em 0.75em;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        p {
+            margin: 0;
+            font-family: Roboto, "Helvetica Neue", sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+        }
+    }
+
+    &__button {
+        border: none;
+    }
+
+    &__icon {
+        transform: scale(0.9);
+
     }
 
     &__severity {
@@ -47,11 +66,11 @@ $high: #D45113;
         &-low {
             background-color: $low;
         }
-    
+
         &-medium {
             background-color: $mid;
         }
-    
+
         &-high {
             background-color: $high;
         }

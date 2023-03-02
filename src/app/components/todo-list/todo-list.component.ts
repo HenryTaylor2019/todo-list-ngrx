@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from "@angular/core";
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from "@angular/core";
 import { List } from "src/app/models/list";
 import { Todo } from "src/app/models/todo";
 
@@ -27,29 +27,41 @@ export class TodoListComponent implements OnInit, OnChanges {
     public deleteArchivedTodo: EventEmitter<string> = new EventEmitter<string>();
 
     @Output()
+    public updateListTitle: EventEmitter<List> = new EventEmitter<List>();
+
+    @Output()
     public todo: EventEmitter<Todo> = new EventEmitter<Todo>();
 
+    @Output()
+    public deleteList: EventEmitter<string> = new EventEmitter<string>();
+
     public filteredTodos: Todo[] = [];
+
+    public formVisible = false;
 
     constructor() {}
 
     ngOnInit(): void {
-
     }
 
-    ngOnChanges(changes: SimpleChanges): void {
+    ngOnChanges(): void {
         this.filterTodo() 
-
     }
 
     onPostTodo(todo: Todo) {
         todo.listId = this.list.id
-
         this.todo.emit(todo)
+    }
+
+    onUpdateListTitle(id: string) {
+        console.log({id: id, title: this.list.title})
+        this.updateListTitle.emit({id: id, title: this.list.title})
     }
 
     filterTodo() {
         this.filteredTodos = this.todos.filter((todo) => todo.listId === this.list.id)
+        console.log(this.filteredTodos)
+
     }
 
     onDeleteTodo(id: string) {
@@ -66,5 +78,13 @@ export class TodoListComponent implements OnInit, OnChanges {
 
     onDeleteArchivedTodo(id: string) {
         this.deleteArchivedTodo.emit(id);
+    }
+
+    onToggleFormView() {
+        this.formVisible = !this.formVisible
+    }
+
+    onDeleteList(id: string) {
+        this.deleteList.emit(id)
     }
 }

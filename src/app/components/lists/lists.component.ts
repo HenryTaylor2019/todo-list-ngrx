@@ -21,6 +21,9 @@ export class ListsComponent implements OnInit {
     public archiveTodo: EventEmitter<Todo> = new EventEmitter<Todo>();
 
     @Output()
+    public deleteList: EventEmitter<string> = new EventEmitter<string>();
+
+    @Output()
     public onViewTodoDetails: EventEmitter<Todo> = new EventEmitter<Todo>();
 
     @Output()
@@ -29,6 +32,9 @@ export class ListsComponent implements OnInit {
 
     @Output()
     public todo: EventEmitter<Todo> = new EventEmitter<Todo>();
+
+    @Output()
+    public updateListTitle: EventEmitter<List> = new EventEmitter<List>();
 
     constructor() {}
 
@@ -52,5 +58,13 @@ export class ListsComponent implements OnInit {
 
     onDeleteArchivedTodo(id: string) {
         this.deleteArchivedTodo.emit(id)
+    }
+
+    onDeleteList(id: string) {
+        this.deleteList.emit(id)
+    }
+
+    onUpdateListTitle(list: List) {
+        this.updateListTitle.emit(list)
     }
 }

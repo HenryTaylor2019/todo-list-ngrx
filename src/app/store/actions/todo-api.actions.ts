@@ -17,13 +17,19 @@ export const addAllTodosSuccess = createAction(
 );
 
 export const removeTodo = createAction(
-    "[Todo] Remove todo from server",
-    props<{ id: string }>()
-);
+    "[Todo] Remove todo from server");
 
 export const removeTodoSuccess = createAction(
     "[Todo] Remove todo from server Success",
     props<{ id: string }>()
+);
+
+export const updateTodo = createAction(
+    "[Todo] Update todo in server");
+
+export const updateTodoSuccess = createAction(
+    "[Todo] Update todo in server Success",
+    props<{ todo: Todo }>()
 );
 
 export const fetchAllTodos = createAction("[Todo] Fetch all todos from server");
@@ -65,6 +71,14 @@ export const fetchAllLists = createAction("[List] Fetch all lists from server");
 export const fetchAllListsSuccess = createAction(
     "[List] Fetch all lists from server success",
     props<{ lists: List[] }>()
+);
+
+export const updateListTitle = createAction("[List] Update List title on server")
+;
+
+export const updateListTitleSuccess = createAction(
+    "[List] Update List title on server success",
+    props<{ list: List }>()
 );
 
 export const fetchAllListsFailure = createAction(

@@ -6,21 +6,23 @@
     &__form {
         display: flex;
         flex-direction: column;
-        padding: 20px;
-        border: 2px solid black;
-        border-radius: 15px;
+        // padding: 20px;
+        // border: 0.5px solid black;
+        // border-radius: 5px;
+        // background-color: white;
+
     }
 
     &__field {
         display: flex;
-        flex-direction: column;
+        // justify-content: space-between;
         gap: 10px;
-        margin-top: 10px;
 
         &--input {
-            border-radius: 15px;
+            border-radius: 5px;
             border: 1px solid black;
             padding: 8px 8px;
+            width: 100%;
         }
 
         &--desc {
@@ -43,21 +45,5 @@
 
     &__actions {
         padding-top: 10px;
-
-        button {
-            padding: 6px 12px;
-            background: rgb(42, 139, 42);
-            color: white;
-            font-size: 16px;
-            border-radius: 15px;
-            border: none;
-            box-shadow: none;
-            cursor: pointer;
-
-            &:disabled {
-                background-color: grey;
-                cursor: not-allowed;
-            }
-        }
     }
 }

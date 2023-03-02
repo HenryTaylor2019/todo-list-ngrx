@@ -1,0 +1,37 @@
+$low: #4da167;
+$mid: #f9a03f;
+$high: #d45113;
+
+.container {
+    &__header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &-low {
+            background-color: $low;
+        }
+
+        &-medium {
+            background-color: $mid;
+        }
+
+        &-high {
+            background-color: $high;
+        }
+    }
+
+    &__content {
+    }
+
+
+    &__description {
+        background-color: bisque;
+        border-radius: 5px;
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+    }
+}

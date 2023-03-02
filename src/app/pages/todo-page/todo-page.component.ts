@@ -4,80 +4,73 @@ import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 import { List } from "src/app/models/list";
 import { Todo } from "src/app/models/todo";
-import { DialogService } from "src/app/services/dialog-service";
+import { TodoDialogService } from "src/app/services/todo-dialog.service";
 import { TodoFacadeService } from "src/app/services/todo-facade.service";
 import { TodoActions } from "src/app/store/actions/action.types";
 
 import { v4 as uuid } from "uuid";
 
 @Component({
-    selector: "app-todo-page",
-    templateUrl: "./todo-page.component.html",
-    styleUrls: ["./todo-page.component.scss"],
+  selector: "app-todo-page",
+  templateUrl: "./todo-page.component.html",
+  styleUrls: ["./todo-page.component.scss"],
 })
 export class TodoPageComponent implements OnInit {
-    public todos$: Observable<Todo[]>;
-    public archivedTodos$: Observable<Todo[]>;
-    public lists$: Observable<List[]>;
-    public isLoading$: Observable<boolean>;
-    public todo!: Todo;
-    public uuid!: string;
-    public listForm: FormGroup;
+  public todos$: Observable<Todo[]>;
+  public archivedTodos$: Observable<Todo[]>;
+  public lists$: Observable<List[]>;
+  public list$: Observable<List>;
+  public isLoading$: Observable<boolean>;
+  public todo: Todo;
+  public uuid: string;
 
-    constructor(
-        private todoFacadeService: TodoFacadeService,
-        private store: Store,
-        private todoDialogService: DialogService
-    ) {
-        this.todos$ = this.todoFacadeService.getTodos();
-        this.archivedTodos$ = this.todoFacadeService.getArchivedTodos();
-        this.lists$ = this.todoFacadeService.getLists();
-        this.isLoading$ = this.todoFacadeService.getLoadingState();
-    }
+  constructor(
+    private todoFacadeService: TodoFacadeService,
+    private store: Store
+  ) {
+    this.todos$ = this.todoFacadeService.getTodos();
+    this.archivedTodos$ = this.todoFacadeService.getArchivedTodos();
+    this.lists$ = this.todoFacadeService.getLists();
+    this.isLoading$ = this.todoFacadeService.getLoadingState();
+  }
 
-    ngOnInit(): void {
-        this.store.dispatch(TodoActions.getAllTodos());
-        this.store.dispatch(TodoActions.getAllArchivedTodos());
-        this.store.dispatch(TodoActions.getAllLists());
+  ngOnInit(): void {
+    this.store.dispatch(TodoActions.getAllTodos());
+    this.store.dispatch(TodoActions.getAllArchivedTodos());
+    this.store.dispatch(TodoActions.getAllLists());
+  }
 
-        this.listForm = new FormGroup({
-            title: new FormControl("", [Validators.required]),
-        });
-    }
+  onCreateList(formData: any): void {
+    formData.id = uuid();
+    this.store.dispatch(TodoActions.addList({ list: formData }));
+  }
 
-    onCreateList(): void {
-        this.listForm.value.id = uuid();
-        if (this.listForm.valid) {
-            this.store.dispatch(TodoActions.addList({ list: this.listForm.value }));
-            this.listForm.reset();
-        }
-    }
+  onPostTodo(todo: Todo) {
+    todo.id = uuid();
+    this.todoFacadeService.dispatch(TodoActions.addTodo({ todo }));
+  }
 
-    onPostTodo(todo: Todo) {
-        todo.id = uuid();
-        this.todoFacadeService.dispatch(TodoActions.addTodo({ todo }));
-    }
+  onArchiveTodo(todo: Todo) {
+    this.todoFacadeService.dispatch(TodoActions.archiveTodo({ todo }));
+  }
 
-    onArchiveTodo(todo: Todo) {
-        this.todoFacadeService.dispatch(TodoActions.archiveTodo({ todo }));
-    }
+  onOpenDialog(todo: Todo) {
+    this.todoFacadeService.dispatch(TodoActions.openTodoModal({ todo }));
+  }
 
-    onRemoveAllLists() {
-        this.todoFacadeService.dispatch(TodoActions.removeAllLists());
-    }
+  onDeleteTodo(id: string) {
+    this.todoFacadeService.dispatch(TodoActions.removeTodo({ id }));
+  }
 
+  onUpdateListTitle(list: List) {
+    this.todoFacadeService.dispatch(TodoActions.updateListTitle({ list }));
+  }
 
-    onOpenDialog(todo: Todo) {
-        this.todoDialogService.openDialog(todo);
-    }
+  onDeleteTodoList(id: string) {
+    this.todoFacadeService.dispatch(TodoActions.removeList({ id }));
+  }
 
-    onDeleteTodo(id: string) {
-        this.todoFacadeService.dispatch(TodoActions.removeTodo({ id }));
-    }
-
-    onDeleteArchivedTodo(id: string) {
-        this.todoFacadeService.dispatch(
-            TodoActions.removeTodoFromArchive({ id })
-        );
-    }
+  onDeleteArchivedTodo(id: string) {
+    this.todoFacadeService.dispatch(TodoActions.removeTodoFromArchive({ id }));
+  }
 }

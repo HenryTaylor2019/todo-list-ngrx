@@ -32,6 +32,7 @@ export class TodoCardComponent implements OnInit {
     }
 
     onDelete() {
+        console.log('qefqe')
         this.onDeleteTodo.emit();
     }
 
@@ -47,9 +48,9 @@ export class TodoCardComponent implements OnInit {
         this.onDeleteArchivedTodo.emit();
     }
 
-    getColor(type: string) {
-       return type === 'todo' ?
-         "container__title-" + this.todo.severityLevel.toLowerCase() :
-         "container__title-" + this.archivedTodo.severityLevel.toLowerCase() 
-    }
+    // getColor(type: string) {
+    //    return type === 'todo' ?
+    //      "container__title-" + this.todo.severityLevel.toLowerCase() :
+    //      "container__title-" + this.archivedTodo.severityLevel.toLowerCase() 
+    // }
 }

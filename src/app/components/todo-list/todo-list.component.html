@@ -1,21 +1,50 @@
 <div class="container" *ngIf="todos">
-    <div class="container__title">
-        <h2>{{list.title}}</h2>
+  <div class="container__title">
+    <input
+      class="container__title-input"
+      [(ngModel)]="list.title"
+      (change)="onUpdateListTitle(list.id)"
+      [placeholder]="list.title"
+    />
+    <button
+      mat-button
+      class="container__delete_board"
+      *ngIf="!!!filteredTodos.length"
+      (click)="onDeleteList(list.id)"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="container__content">
+    <div class="container__todos" *ngFor="let todo of filteredTodos">
+      <app-todo-card
+        [todo]="todo"
+        (onDeleteTodo)="onDeleteTodo(todo.id)"
+        (onArchiveTodo)="onArchiveTodo(todo)"
+        (onViewTodoDetails)="onViewDetails(todo)"
+      >
+      </app-todo-card>
     </div>
 
-    <div class="container__content">
-        <div class="container__todos" *ngFor="let todo of filteredTodos" >
-            <app-todo-card 
-                [todo]="todo" 
-                (onDeleteTodo)="onDeleteTodo(todo.id)" 
-                (onArchiveTodo)="onArchiveTodo(todo)"
-                (onViewTodoDetails)="onViewDetails(todo)"
-                >
-            </app-todo-card>
-        </div>
-        <div class="container__form">
-            <app-form (todo)="onPostTodo($event)"></app-form>
-        </div>
-    </div>
+    <button
+      mat-raised-button
+      (click)="onToggleFormView()"
+      *ngIf="!formVisible; else form"
+    >
+      + Add Todo
+    </button>
 
+    <ng-template #form>
+      <div class="container__form-container">
+        <app-form
+          class="container__form"
+          (todo)="onPostTodo($event)"
+        ></app-form>
+        <button class="container__cancel" (click)="onToggleFormView()">
+          <mat-icon class="container__close-icon">close</mat-icon>
+        </button>
+      </div>
+    </ng-template>
+  </div>
 </div>

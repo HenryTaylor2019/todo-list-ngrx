@@ -1,0 +1,21 @@
+@import "../../../color-variables.scss";
+
+
+.container {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    background-color: $syracuse-red-orange;
+
+    &__form {
+        display: flex;
+        justify-content: space-around;
+        padding: 1em 2em;
+        gap: 1em;
+    }
+
+    &__input {
+        border-radius: 5px;
+        border-style: none;
+    }
+}

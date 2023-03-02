@@ -10,6 +10,11 @@ export const addAllTodos = createAction("[Todo] Add All todos to store", props<{
 
 export const removeTodo = createAction("[Todo] Remove todo from store", props<{ id: string }>());
 
+export const updateTodo = createAction("[Todo] update todo in store", props<{ todo: Todo }>());
+
+// export const removeTodo = createAction("[Todo] Remove todo from store", props<{ id: string }>());
+
+
 export const removeAllTodos = createAction("[Todo] Remove alls todo from store");
 
 // Archive
@@ -38,5 +43,9 @@ export const removeList = createAction("[List] Remove list from store", props<{ 
 
 export const removeAllLists = createAction("[List] Remove all lists from store");
 
+export const updateListTitle = createAction("[List] update list title", props<{ list: List }>());
 
 
+// Modal
+
+export const openTodoModal = createAction("[Modal] Open Todo Modal", props<{ todo: Todo }>());

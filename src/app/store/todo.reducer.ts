@@ -64,6 +64,12 @@ export const todoReducer = createReducer(
             todos: [...state.todos, ...action.todos],
         };
     }),
+    on(TodoActions.updateTodo, (state, {todo}) => {
+        return {
+            ...state,
+            todos: [...state.todos.filter((a) => (a.id === todo.id ? a.description = todo.description : todo.description)  )]
+        };
+    }),
 
     // Archive
 
@@ -140,6 +146,21 @@ export const todoReducer = createReducer(
             lists: [...state.lists, ...lists],
         };
     }),
+    on(TodoActions.removeList, (state) => {
+        return {
+            ...state,
+            loading: true,
+            loaded: false,
+        };
+    }),
+    on(TodoApiActions.removeListSuccess, (state, {id}) => {
+        return {
+            ...state,
+            loading: true,
+            loaded: false,
+            lists: [...state.lists.filter((todo) => todo.id != id)],
+        };
+    }),
     on(TodoActions.removeAllLists, (state) => {
         return {
             ...state,
@@ -153,6 +174,12 @@ export const todoReducer = createReducer(
             loading: false,
             loaded: true,
             lists: []
+        };
+    }),
+    on(TodoActions.updateListTitle, (state, {list}) => {
+        return {
+            ...state,
+            lists: [...state.lists.filter((a) => (a.id === list.id ? a.title = list.title : list.title)  )]
         };
     }),
 );

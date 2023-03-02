@@ -1,8 +1,9 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDialogModule } from "@angular/material/dialog";
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from "@angular/material/input";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -14,6 +15,9 @@ import { SearchComponent } from "./search/search.component";
 import { TodoCardComponent } from "./todo-card/todo-card.component";
 import { TodoDialogComponent } from "./todo-dialog/todo-dialog.component";
 import { TodoListComponent } from "./todo-list/todo-list.component";
+import { ListFormComponent } from './list-form/list-form.component';
+
+
 
 @NgModule({
     declarations: [
@@ -25,6 +29,7 @@ import { TodoListComponent } from "./todo-list/todo-list.component";
         ArchivedListComponent,
         TodoDialogComponent,
         ListsComponent,
+        ListFormComponent,
     ],
     imports: [
         CommonModule,
@@ -34,6 +39,8 @@ import { TodoListComponent } from "./todo-list/todo-list.component";
         BrowserAnimationsModule,
         MatDialogModule,
         MatButtonModule,
+        FormsModule,
+        MatIconModule
     ],
     exports: [
         HeaderComponent,
@@ -42,7 +49,8 @@ import { TodoListComponent } from "./todo-list/todo-list.component";
         FormComponent,
         ArchivedListComponent,
         TodoDialogComponent,
-        ListsComponent
+        ListsComponent,
+        ListFormComponent
     ],
 })
 export class ComponentsModule {}

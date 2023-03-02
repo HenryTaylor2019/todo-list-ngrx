@@ -1,14 +1,15 @@
+@import "../../../color-variables.scss";
+
 .container {
-    border: 1px solid black;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    min-width: 300px;
     padding: 10px;
     margin: 20px 0;
     border-radius: 15px;
-    min-height: 80vh;
-    min-width: 300px;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
     gap: 10px;
+    background: $syracuse-red-orange;
 
     &__content {
         display: flex;
@@ -20,12 +21,50 @@
 
     &__title {
         height: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__title-input {
+        appearance: none;
+        background-color: transparent;
+        border: none;
+        font-size: 20px;
+        color: white;
+
+        &:focus {
+            outline: none;
+          }
+
+          &:hover {
+            border: 1px solid black;
+            border-radius: 5px;
+          }
+    }
+
+    &__delete_board {
+        color: white;
     }
 
     &__todos {
         display: flex;
     }
 
+    &__form-container {
+        display: flex;
+    }
+
     &__form {
+        width: 100%;
+    }
+
+    &__cancel {
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+    }
+
+    &__close-icon {
+        color: white;
     }
 }

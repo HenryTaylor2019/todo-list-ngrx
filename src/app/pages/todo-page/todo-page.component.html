@@ -5,15 +5,17 @@
     isloading: isLoading$ | async
 } as PageData" class="container">
 
-    <app-header></app-header>
+    <!-- <app-header></app-header> -->
+    <app-list-form (formData)="onCreateList($event)"></app-list-form>
 
-    <div class="container__content" (submit)="onCreateList()">
-        <form action="" [formGroup]="listForm">
+    <div class="container__content" >
+        <!-- <form action="" [formGroup]="listForm"(submit)="onCreateList()">
             <input type="text" formControlName="title">
             <button mat-raised-button [disabled]="!listForm.valid">Add List</button>
-        </form>
+        </form> -->
 
-        <button (click)="onRemoveAllLists()">Remove all lists</button>
+
+        <!-- <button (click)="onRemoveAllLists()">Remove all lists</button> -->
 
         <div *ngIf="PageData.todos && PageData.lists">
             <app-lists 
@@ -23,6 +25,8 @@
             (deleteArchivedTodo)="onDeleteArchivedTodo($event)" 
             (onViewTodoDetails)="onOpenDialog($event)"
             (todo)="onPostTodo($event)" 
+            (deleteList)="onDeleteTodoList($event)" 
+            (updateListTitle)="onUpdateListTitle($event)" 
             [lists]="PageData.lists">
             </app-lists>
         </div>

@@ -1,15 +1,15 @@
 <div class="container__lists">
-
-    <app-todo-list 
-        *ngFor="let list of lists" 
-        [todos]="todos"
-        [list]="list"
-        (deleteTodo)="onDeleteTodo($event)" 
-        (archiveTodo)="onArchiveTodo($event)"
-        (deleteArchivedTodo)="onDeleteArchivedTodo($event)" 
-        (onViewTodoDetails)="onOpenDialog($event)"
-        (todo)="onPostTodo($event)" 
-    >
-    </app-todo-list>
-
+  <app-todo-list
+    *ngFor="let list of lists"
+    [todos]="todos"
+    [list]="list"
+    (deleteTodo)="onDeleteTodo($event)"
+    (archiveTodo)="onArchiveTodo($event)"
+    (deleteArchivedTodo)="onDeleteArchivedTodo($event)"
+    (onViewTodoDetails)="onOpenDialog($event)"
+    (todo)="onPostTodo($event)"
+    (deleteList)="onDeleteList($event)"
+    (updateListTitle)="onUpdateListTitle($event)"
+  >
+  </app-todo-list>
 </div>

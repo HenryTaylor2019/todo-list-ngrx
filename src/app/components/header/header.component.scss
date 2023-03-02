@@ -1,8 +1,11 @@
+@import "../../../color-variables.scss";
+
 .container {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 50px;
+    padding: 1.5em;
+    background-color: $syracuse-red-orange;
 
     &__title {
         

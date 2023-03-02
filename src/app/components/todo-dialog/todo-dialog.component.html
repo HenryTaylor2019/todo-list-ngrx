@@ -1,15 +1,28 @@
-<mat-dialog-content>
-    <div>
-        <p>{{todo.title}}</p>
-        <p>{{todo.description}}</p>
+<mat-dialog-content class="container">
 
+    <div class="container__content">
+        <div class="container__header" [ngClass]="getColor(todo.severityLevel)">
+            <p>{{todo.title}}</p>
 
+            <button mat-dialog-close><mat-icon>close</mat-icon>
+            </button>
+        </div>
+
+        <div class="container__description">
+            <p>{{todo.description}}</p>
+        </div>
     </div>
+
+    <form class="container__form" [formGroup]="detailsForm" (submit)="onSubmit(todo)">
+        <label mat-label for="description">Add details</label>
+        <input class="container__field--input" type="text" id="description" formControlName="description">
+    </form>
 
 </mat-dialog-content>
 <mat-dialog-actions>
 
+    <div class="container__btn-container">
+        <button mat-button class="container__btn" (click)="onDelete()">Delete Note</button>
+    </div>
 
-    <button mat-button mat-dialog-close>Close</button>
-    <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
 </mat-dialog-actions>

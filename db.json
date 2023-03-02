@@ -1,11 +1,30 @@
 {
   "todos": [
     {
-      "title": "Hello",
-      "description": "some stuff",
-      "severityLevel": "High",
-      "id": "fc6273d1-4e4f-4683-9a35-04fb595c744b"
+      "title": "Go Shopping",
+      "listId": "d11497c1-b0bd-46c7-8356-0a2a8079b006",
+      "id": "28999e7d-4538-4cb8-a587-2c0b11705a49"
+    },
+    {
+      "title": "Prep for Job interview",
+      "listId": "d11497c1-b0bd-46c7-8356-0a2a8079b006",
+      "id": "a7275121-f1b5-420a-9bf2-0afaf8b1fbf0"
+    },
+    {
+      "title": "Do stuff",
+      "listId": "d11497c1-b0bd-46c7-8356-0a2a8079b006",
+      "id": "611053a2-927c-411c-affe-2b94d9339ad6"
     }
   ],
-  "archivedtodos": []
+  "archivedtodos": [],
+  "lists": [
+    {
+      "title": "List One",
+      "id": "d11497c1-b0bd-46c7-8356-0a2a8079b006"
+    },
+    {
+      "title": "List Two",
+      "id": "56f81807-120a-4f82-9f9d-8a189dce321f"
+    }
+  ]
 }

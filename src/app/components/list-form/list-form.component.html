@@ -1,0 +1,10 @@
+<div class="container">
+  <form
+    class="container__form"
+    [formGroup]="listForm"
+    (submit)="onCreateList()"
+  >
+    <input class="container__input" type="text" formControlName="title" />
+    <button mat-raised-button [disabled]="!listForm.valid">Add List</button>
+  </form>
+</div>

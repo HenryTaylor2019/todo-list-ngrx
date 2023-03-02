@@ -24,6 +24,11 @@ export class TodoApiService {
         return this.http.post<Todo[]>(url, todos);
     }
 
+    public updateTodo(todo: Todo) {
+        const url = `http://localhost:3000/todos/${todo.id}`;
+        return this.http.put<Todo>(url, todo);
+    }
+
     public removeTodoFromStorage(id: string) {
         const url = `http://localhost:3000/todos/${id}`;
         return this.http.delete<Todo>(url);
@@ -44,6 +49,11 @@ export class TodoApiService {
     public addListToStorage(list: List) {
         const url = 'http://localhost:3000/lists/';
         return this.http.post<List>(url, list);
+    }
+
+    public updateListTitle(list: List) {
+        const url = `http://localhost:3000/lists/${list.id}`;
+        return this.http.put<List>(url, list);
     }
 
     public addAllListsToStorage(lists: List[]) {

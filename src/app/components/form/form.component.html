@@ -4,31 +4,34 @@
 
     <form [formGroup]="todoForm" (submit)="onSubmit()">
         <div class="container__form">
-      
+
             <div class="container__field">
-                <label for="title">Title</label>
+                <!-- <label for="title">Title</label> -->
                 <input class="container__field--input" type="text" id="title" formControlName="title"
-                    placeholder="Title">
+                    placeholder="Enter a title for this card...">
+
+
             </div>
 
-            <div class="container__field" *ngIf="todoForm.value.title">
+            <!-- <div class="container__field" *ngIf="todoForm.value.title">
                 <label for="description">Description</label>
                 <textarea class="container__field--desc" type="text" id="description" formControlName="description"
                     placeholder="Description"></textarea>
-            </div>
+            </div> -->
 
-            <div class="container__level">
+            <!-- <div class="container__level">
                 <div *ngFor="let option of severityOptions">
                     <label for="{{option.label}}">
                         <input class="container__radio" [value]="option.label" type="radio" name="severityLevel" id="{{option.label}}" formControlName="severityLevel">
                         {{option.label}}
                     </label>
                 </div>
-            </div>
+            </div> -->
 
-            <div class="container__actions">
-                <button [disabled]="!todoForm.valid">Submit Todo</button>
-            </div>
+            <!-- <div class="container__actions">
+                <button mat-raised-button [disabled]="!todoForm.valid">Submit Todo</button>
+
+            </div> -->
         </div>
     </form>
 </div>
